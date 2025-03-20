@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
+
+{% block title %}Index{% endblock %}
+
+{% block content %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Table</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='table.css') }}">
 </head>
-<body>
+
     <table>
         <tr>
           <th>Company</th>
@@ -18,5 +19,4 @@
           <td>Germany</td>
         </tr>
       </table>
-</body>
-</html>
+{% endblock %}
