@@ -28,7 +28,7 @@ body {
     color: #333;
 }
 
-.form-container input[type="text"] {
+.form-container{
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
