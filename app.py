@@ -18,15 +18,11 @@ mycursor = db.cursor(buffered = True)
 app.config['SECRET_KEY'] = 'secret_key'
 
 class Clock(FlaskForm):
-    time = TimeField('Interval', validators=[DataRequired])
-class Calibration(FlaskForm):
-    distance_from_chair_to_back = FloatField('')
-    
-
+    time = TimeField('Interval', validators=[DataRequired()])
 @app.route('/')
 def Index():
     Timer_info = Clock()
     return render_template('/Index.html')
 @app.route('/Table')
 def Table():
-    return render_template('/Table')
+    return render_template('/Table.html')
