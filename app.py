@@ -10,7 +10,7 @@ app = Flask(__name__)
 db = mysql.connector.connect(
     host = 'localhost',
     user = 'root',
-    password = 'gogo112008',
+    password = 'WhatTheFUCKIsMySQL420',
     database = 'login_info'
 )
 mycursor = db.cursor(buffered = True)
@@ -18,11 +18,10 @@ mycursor = db.cursor(buffered = True)
 app.config['SECRET_KEY'] = 'secret_key'
 
 class Clock(FlaskForm):
-    time = TimeField('Interval', validators=[DataRequired])
+    time = TimeField('Interval', validators=[DataRequired()])
 class Calibration(FlaskForm):
     distance_from_chair_to_back = FloatField('')
     
-
 @app.route('/')
 def Index():
     Timer_info = Clock()
