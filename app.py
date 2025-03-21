@@ -23,7 +23,7 @@ class Clock(FlaskForm):
     Submit = SubmitField('Submit')
 
 class Clock2(FlaskForm):
-    minutes2 = IntegerField('minuts', validators=[DataRequired(), NumberRange(min = 0,max = 600)])
+    minutes2 = IntegerField('minutes', validators=[DataRequired(), NumberRange(min = 0,max = 600)],)
 class KilograMeter(FlaskForm):
     kilograms = IntegerField('KG', validators=[DataRequired(), NumberRange(min = 0,max = 200)])
 class Calibrate(FlaskForm):
@@ -41,6 +41,9 @@ def Index():
     Timer_info2 = Clock2() 
     Kilogram = KilograMeter()
     calibrate = Calibrate()
+    Timer_info.minutes.data = session["minutes_to_shift"]
+    Timer_info2.minutes2.data = session["minutes_to_move_around"]
+    Kilogram.kilograms.data = session["Kilograms"]
     if Timer_info.validate_on_submit():
         session["minutes_to_shift"] = Timer_info.minutes.data
         session["minutes_to_move_around"] = Timer_info2.minutes2.data
@@ -48,11 +51,12 @@ def Index():
         print(session["Kilograms"])
         print(session["minutes_to_shift"])
         print(session["minutes_to_move_around"])
-        if(calibrate.bool == True):
+        print(calibrate.bool)
+        if(calibrate.bool.data == True):
             print("YES")
-            values = [30.5,20.6]
-            mycursor.execute("CREATE TABLE IF NOT EXISTS default_data (back_sensor FLOAT, neck_sensor FLOAT)")
-            mycursor.execute("INSERT INTO default_data (back_sensor,neck_sensor) VALUES(%f,%f)", values)
+           # values = [30.5,20.6]
+           # mycursor.execute("CREATE TABLE IF NOT EXISTS default_data (back_sensor FLOAT, neck_sensor FLOAT)")
+           # mycursor.execute("INSERT INTO default_data (back_sensor,neck_sensor) VALUES(%f,%f)", values)
         else:
             print("NO")
         return render_template('/Index.html', form = Timer_info, secondform = Timer_info2, Weight = Kilogram, calibrating = calibrate)
