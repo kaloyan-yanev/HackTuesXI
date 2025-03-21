@@ -12,7 +12,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 860px; /* Added px unit */
+    width: 870px; /* Added px unit */
     padding: 10px;
     margin: 15px;
     background-color: white;
@@ -64,28 +64,28 @@ body {
 }
 
 .form-container input[type="text"], .form-container input[type="number"] {
-    width: 100%; /* Make the input boxes take full width */
-    padding: 15px; /* Increase padding for a bigger input box */
-    font-size: 18px; /* Increase font size */
-    border: 2px solid #3498db; /* Border color */
-    border-radius: 5px; /* Rounded corners */
-    outline: none; /* Remove default outline */
-    background-color: #f9f9f9; /* Background color */
-    color: #333; /* Text color */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for border and shadow */
-    margin-bottom: 15px; /* Space between input boxes */
+    width: 100%; 
+    padding: 15px;
+    font-size: 18px;
+    border: 2px solid #3498db;
+    border-radius: 5px;
+    outline: none;
+    background-color: #f9f9f9;
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 15px;
 }
 
 .form-container input[type="text"]:hover, .form-container input[type="number"]:hover {
-    border-color: #2ecc71; /* Change border color on hover */
+    border-color: #2ecc71;
 }
 
 .form-container input[type="text"]:focus, .form-container input[type="number"]:focus {
-    border-color: #2ecc71; /* Change border color on focus */
-    box-shadow: 0 0 5px rgba(46, 204, 113, 0.8); /* Add shadow on focus */
+    border-color: #2ecc71;
+    box-shadow: 0 0 5px rgba(46, 204, 113, 0.8);
 }
 
 .form-container input[type="text"]::placeholder, .form-container input[type="number"]::placeholder {
-    color: #aaa; /* Placeholder text color */
-    font-style: italic; /* Placeholder text style */
+    color: #aaa;
+    font-style: italic;
 }
