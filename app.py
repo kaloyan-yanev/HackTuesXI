@@ -11,7 +11,7 @@ app = Flask(__name__)
 db = mysql.connector.connect(
     host = 'localhost',
     user = 'root',
-    password = 'gogo112008',
+    password = 'WhatTheFUCKIsMySQL420',
     database = 'login_info'
 )
 mycursor = db.cursor(buffered = True)
