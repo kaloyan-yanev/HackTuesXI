@@ -11,7 +11,7 @@ app = Flask(__name__)
 db = mysql.connector.connect(
     host = 'localhost',
     user = 'root',
-    password = 'WhatTheFUCKIsMySQL420',
+    password = 'gogo112008',
     database = 'login_info'
 )
 mycursor = db.cursor(buffered = True)
@@ -33,6 +33,8 @@ def default():
     session["minutes_to_shift"] = 20
     session["minutes_to_move_around"] = 30
     session["Kilograms"] = 50
+    global i
+    i = 0
     return redirect(url_for("Home"))
 
 @app.route('/', methods = ['GET', 'POST'])
@@ -41,9 +43,6 @@ def Index():
     Timer_info2 = Clock2() 
     Kilogram = KilograMeter()
     calibrate = Calibrate()
-    Timer_info.minutes.data = session["minutes_to_shift"]
-    Timer_info2.minutes2.data = session["minutes_to_move_around"]
-    Kilogram.kilograms.data = session["Kilograms"]
     if Timer_info.validate_on_submit():
         session["minutes_to_shift"] = Timer_info.minutes.data
         session["minutes_to_move_around"] = Timer_info2.minutes2.data
@@ -52,6 +51,7 @@ def Index():
         print(session["minutes_to_shift"])
         print(session["minutes_to_move_around"])
         print(calibrate.bool)
+        i = 1
         if(calibrate.bool.data == True):    
             print("YES")
            # values = [30.5,20.6]
@@ -59,10 +59,10 @@ def Index():
            # mycursor.execute("INSERT INTO default_data (back_sensor,neck_sensor) VALUES(%f,%f)", values)
         else:
             print("NO")
-        return render_template('/Index.html', form = Timer_info, secondform = Timer_info2, Weight = Kilogram, calibrating = calibrate)
+        return redirect(url_for("Home"))
     else:
         print("TOO BAD")
-    return render_template('/Index.html', form = Timer_info, secondform = Timer_info2, Weight = Kilogram, calibrating = calibrate)
+    return render_template('/Index.html', form = Timer_info, secondform = Timer_info2, Weight = Kilogram, calibrating = calibrate, session_minutes1 = session["minutes_to_shift"], session_minutes2 = session["minutes_to_move_around"], current_weight = session["Kilograms"])
 
 @app.route('/Table')
 def Table():
