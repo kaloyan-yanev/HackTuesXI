@@ -9,13 +9,16 @@
 
 <div class="form-container">
     <h1>Enter Time</h1>
-    <form method="post">
-        <label for="hours">Hours:</label>
-        {{ form.Hours }}
-        <label for="minutes">Minutes:</label>
+    <form method = 'Post'>
+        {{ form.csrf_token}}
+        <label for="minutes">Set Minutes to shift around:</label>
         {{ form.minutes }}
-        <br>
-        {{ form.Submit }}
+        <label for="minutes">Set Minutes to stand up and move around:</label>
+        {{ secondform.minutes2}}
+        <label for="minutes">Set minimum weight for chair sensitivity:</label>
+        {{ Weight.kilograms}}<br>
+        Calibrate?{{calibrating.bool(default = 'checked')}}<br>
+        {{ form.Submit }} 
     </form>
 </div>
 {% endblock %}
