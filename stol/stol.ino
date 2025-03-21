@@ -4,6 +4,8 @@
 #include <BLEServer.h>
 #include <BLEUtils.h>
 #include <BLE2902.h>
+#include <Wire.h>
+#include <MPU6050_tockn.h>
 
 //гърба
 #define press1 1
@@ -28,6 +30,13 @@
 #define giros_seat_SCL 21
 #define rel2_nagr 111
 #define rel2_ohlad 222
+#define MPU1_ADDR 0x68
+#define MPU2_ADDR 0x69
+#define SDA_pin 6
+#define SCL_pin 7
+
+MPU6050 mpu1(Wire);
+MPU6050 mpu2(Wire);
 
 
 
@@ -52,6 +61,23 @@ class MyServerCallbacks: public BLEServerCallbacks {
 
 void setup() {
   Serial.begin(115200);
+  Wire.begin(SDA_pin, SCL_pin);
+
+  Wire.beginTransmission(MPU1_ADDR);
+  Wire.write(0x6B); 
+  Wire.write(0x00);
+  Wire.endTransmission(true);
+
+  Wire.beginTransmission(MPU2_ADDR);
+  Wire.write(0x6B);
+  Wire.write(0x00);
+  Wire.endTransmission(true);
+
+  mpu1.begin();
+  mpu1.calcGyroOffsets(true);
+
+  mpu2.begin();
+  mpu2.calcGyroOffsets(true);
 
   //гръб
   pinMode(press1, INPUT);
@@ -99,7 +125,16 @@ void setup() {
   BLEDevice::startAdvertising();
 }
 
+
+float normalizeAngle(float angle) {
+    while (angle > 360.0) angle -= 360.0;  // Wrap if greater than 360°
+    while (angle < 0.0) angle += 360.0;    // Wrap if less than 0°
+    return angle;
+}
+
 String data_handler(){
+  mpu1.update();
+  mpu2.update();
   //гръб
   String my_json = "{";
   my_json += "\"but1\":" + String(digitalRead(press1)) + ",";
@@ -115,22 +150,19 @@ String data_handler(){
   my_json += "\"but8\":" + String(digitalRead(press8)) + ",";
   my_json += "\"but9\":" + String(digitalRead(press9)) + ",";
   my_json += "\"but10\":" + String(digitalRead(press10))+ ",";
-  my_json += "\"giros_human_X\":" + String(digitalRead(press10))+ ",";
-  my_json += "\"giros_human_Y\":" + String(digitalRead(press10))+ ",";
-  my_json += "\"giros_seat_X\":" + String(digitalRead(press10))+ ",";
-  my_json += "\"giros_seat_Y\":" + String(digitalRead(press10));
+  my_json += "\"giros_human_Y\":" + String(normalizeAngle(mpu1.getAngleY()))+ ",";
+  my_json += "\"giros_seat_X\":" + String(normalizeAngle(mpu2.getAngleX()));
   my_json += "}@";
   
   return my_json;
 }
 
 void loop() {
-  if(digitalRead(press1) == HIGH){
-    if(runEvery(3000)){
-      if (deviceConnected) {
-          pCharacteristic->setValue(data_handler());
-          pCharacteristic->notify();
-      }
+  if(runEvery(2000)){
+    if (deviceConnected) {
+        pCharacteristic->setValue(data_handler());
+        pCharacteristic->notify();
+        Serial.println(data_handler());
     }
   }
   
