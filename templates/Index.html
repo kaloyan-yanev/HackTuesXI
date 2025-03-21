@@ -3,6 +3,18 @@
 {% block title %}Index{% endblock %}
 
 {% block content %}
-<h1>Time entering here: Hours{{form.Hours}}Minutes{{form.minutes}}Submit{{form.Submit}}</h1>
-<p></p>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+</head>
+
+<div class="form-container">
+    <h1>Enter Time</h1>
+    <form method="post">
+        <label for="hours">Hours:</label>
+        {{ form.Hours }}
+        <label for="minutes">Minutes:</label>
+        {{ form.minutes }}
+        {{ form.Submit }}
+    </form>
+</div>
 {% endblock %}
