@@ -13,6 +13,12 @@ body {
     margin: 20px;
     flex-direction: column;
     align-items: flex-start;
+    width: 300px;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
 .form-container h1 {
@@ -28,12 +34,15 @@ body {
     color: #333;
 }
 
-.form-container{
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
+.form-container input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
     border-radius: 5px;
+    margin-top: 20px;
+    cursor: pointer;
+    font-size: 16px;
 }
 
 .form-container input[type="submit"] {
@@ -42,8 +51,10 @@ body {
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
+    margin-top: 20px;
     cursor: pointer;
     font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 .form-container input[type="submit"]:hover {
