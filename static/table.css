@@ -1,7 +1,18 @@
+.container {
+    width: 80%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.table-container {
+    height: 100%;
+    overflow-y: auto;
+    position: relative;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 25px 0;
     font-size: 18px;
     text-align: left;
 }
@@ -14,12 +25,11 @@ th, td {
 th {
     background-color: #333;
     color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
 tr:nth-of-type(even) {
     background-color: #f3f3f3;
-}
-
-tr:hover {
-    background-color: #f1f1f1;
 }

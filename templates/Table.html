@@ -1,22 +1,32 @@
 {% extends "base.html" %}
 
-{% block title %}Index{% endblock %}
+{% block title %}Table{% endblock %}
 
 {% block content %}
 <head>
   <link rel="stylesheet" href="{{ url_for('static', filename='table.css') }}">
 </head>
 
-    <table>
-        <tr>
-          <th>Company</th>
-          <th>Contact</th>
-          <th>Country</th>
-        </tr>
-        <tr>
-          <td>Alfreds Futterkiste</td>
-          <td>Maria Anders</td>
-          <td>Germany</td>
-        </tr>
-      </table>
+<div class="table-container">
+<table>
+  <thead>
+    <tr>
+      <th>DAYS</th>
+      {% for i in range(0, 7) %}
+      <th>{{ i + 8 }}</th>
+      {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for i in range(1, 25) %}
+    <tr>
+      <td>{{ i }}</td>
+      {% for j in range(0, 7) %}
+      <td><img src="{{ url_for('static', filename='posture_images/GoodPostureBadNeckModified.png') }}" width="50" height="50" alt="Image"></td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
 {% endblock %}
