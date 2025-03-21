@@ -97,9 +97,6 @@ def Home():
             session["gyro_arrow"] = url_for('static', filename = 'gyro_images/gyro_left.png')
         case 8:
             session["gyro_arrow"] = url_for('static', filename = 'gyro_images/gyro_upleft.png')
-    print(random_value_for_now)
-    print(session["minutes_to_shift"])
-    print(session["minutes_to_move_around"])
     return render_template('/Home.html', minutes_to_shift_posture = session["minutes_to_shift"], minutes_to_move_around = session["minutes_to_move_around"], minimum_weight = session["Kilograms"], current_weight = random_value_for_now, image = session["posture_image"], gyro = session["gyro_arrow"])
 
 @app.route('/get_image_url')

@@ -48,12 +48,12 @@
   <div class="image-gyro-container">
     <div class="image-container">
       <h1>Current pose:</h1>
-      <img id="dynamic-image" src="{{ url_for('static', filename='posture_images/GoodPostureBadNeckModified.png') }}" alt="Image">
+      <img id="dynamic-image" src= {{image}} alt="Image">
     </div>
 
     <div class="gyro-container">
       <h1>Gyroscope:</h1>
-      <img id="dynamic-gyro" src="{{ url_for('static', filename='gyro.png') }}" alt="Image">
+      <img id="dynamic-gyro" src= {{gyro}} alt="Image">
     </div>
   </div>
 
@@ -69,7 +69,6 @@
       .then(response => response.json())
       .then(data => {
       var image_src = data.image_url;
-    console.log(image_src);
     document.getElementById("dynamic-image").setAttribute("src", image_src);
   })}, 1000);
 </script>
@@ -80,7 +79,6 @@
       .then(response => response.json())
       .then(data => {
       var gyro_src = data.gyro_url;
-    console.log(gyro_src);
     document.getElementById("dynamic-gyro").setAttribute("src", gyro_src);
   })}, 1000);
 </script>
