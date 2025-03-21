@@ -21,19 +21,28 @@
       var hours = Math.floor(time/3600);
       var minutes = Math.floor((time%3600)/60);
       var seconds = Math.floor((time%3600)%60);
+      console.log(seconds)
+      console.log(minutes)
+      console.log(hours)
       // Display the result in the element with id="first_countdown"
-      if(seconds < 10){
-        document.getElementById("first_countdown").innerHTML = hours + ":" 
-      + minutes + ":" + "0" + seconds;
-      }
-      if(minutes < 10){
-        document.getElementById("first_countdown").innerHTML = hours + ":" + "0"
-      + minutes + ":" + seconds;
-      }
-      if(seconds < 10 && minutes <10){
-        document.getElementById("first_countdown").innerHTML = hours + ":" + "0"
-      + minutes + ":" + "0" + seconds;
-      }
+      // if(seconds < 10){
+      //   document.getElementById("first_countdown").innerHTML = hours + ":" 
+      // + minutes + ":" + "0" + seconds;
+      // }
+      // if(minutes < 10){
+      //   document.getElementById("first_countdown").innerHTML = hours + ":" + "0"
+      // + minutes + ":" + seconds;
+      // }
+      // if(seconds < 10 && minutes <10){
+      //   document.getElementById("first_countdown").innerHTML = hours + ":" + "0"
+      // + minutes + ":" + "0" + seconds;
+      // }
+      //document.getElementById("first_countdown").innerHTML = hours + ":"
+      //+ minutes + ":"+ seconds;
+      var formattedTime = hours + ":" + (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+
+      document.getElementById("first_countdown").innerHTML = formattedTime;
+
       time = time - 1
       // If the count down is finished, write some text
       if (time < 0) {
@@ -56,15 +65,20 @@
         var minutes1 = Math.floor((time1%3600)/60);
         var seconds1 = Math.floor((time1%3600)%60);
         // Display the result in the element with id="demo"
-        if(seconds1 < 10){
-          document.getElementById("second_countdown").innerHTML = hours1 + ":" + minutes1 + ":" + "0" + seconds1;
-        }
-        if(minutes1 < 10){
-          document.getElementById("second_countdown").innerHTML = hours1 + ":" + "0" + minutes1 + ":"  + seconds1;
-        }
-        if(seconds1 < 10 && minutes1 <10){
-          document.getElementById("second_countdown").innerHTML = hours1 + ":" + "0" + minutes1 + ":" + "0" + seconds1;
-        }
+        // if(seconds1 < 10){
+        //   document.getElementById("second_countdown").innerHTML = hours1 + ":" + minutes1 + ":" + "0" + seconds1;
+        // }
+        // if(minutes1 < 10){
+        //   document.getElementById("second_countdown").innerHTML = hours1 + ":" + "0" + minutes1 + ":"  + seconds1;
+        // }
+        // if(seconds1 < 10 && minutes1 <10){
+        //   document.getElementById("second_countdown").innerHTML = hours1 + ":" + "0" + minutes1 + ":" + "0" + seconds1;
+        // }
+        //document.getElementById("second_countdown").innerHTML = hours1 + ":" + minutes1 + ":" + seconds1;
+        var formattedTime1 = hours1 + ":" + (minutes1 < 10 ? "0" : "") + minutes1 + ":" + (seconds1 < 10 ? "0" : "") + seconds1;
+
+        document.getElementById("second_countdown").innerHTML = formattedTime1;
+        
         time1 = time1 - 1
         // If the count down is finished, write some text
         if (time1 < 0) {
