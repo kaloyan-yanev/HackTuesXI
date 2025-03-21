@@ -19,15 +19,15 @@ h1, .weight-display {
     color: #333;
     text-align: center;
     font-weight: lighter;
-    align-self: center; /* Center relative to the container */
+    align-self: center;
 }
 
 .form-container {
     display: flex;
-    flex-direction: row; /* Change to row to align items horizontally */
-    justify-content: space-between; /* Space between items */
-    align-items: center; /* Center items vertically */
-    width: 870px; /* Added px unit */
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 870px;
     padding: 10px;
     margin: 15px;
     background-color: white;
@@ -76,20 +76,29 @@ h1, .weight-display {
     display: inline-block;
 }
 
-.image-container {
+.image-gyro-container {
     display: flex;
-    flex-direction: column; /* Align items vertically */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 200px; /* Adjust width as needed */
-    height: 250px; /* Adjust height as needed */
-    border: 4px solid #707070; /* Add border */
-    border-radius: 15px; /* Rounded corners */
-    overflow: hidden; /* Ensure image fits within the container */
 }
 
-.image-container img {
-    width: 100%; /* Ensure image fits within the container */
-    height: 100%; /* Ensure image fits within the container */
-    object-fit: cover; /* Maintain aspect ratio and cover the container */
+.image-container, .gyro-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 250px;
+    border: 4px solid #707070; 
+    border-radius: 15px;
+    overflow: hidden; 
+    margin-bottom: 20px; 
+    margin-top: 20px;
+}
+
+.image-container img, .gyro-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }

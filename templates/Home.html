@@ -8,56 +8,59 @@
 </head>
 
 <div class="form-container">
-<div class="countdown-container">
-<h1>Shift your posture countdown:</h1>
-<p id="first_countdown"></p>
-<script>
-    var time = {{ minutes_to_shift_posture }} * 60;
-    // Update the count down every 1 second
-    var x = setInterval(function() {
-      // Find the distance between now and the count down date
-     
-      
-      // Time calculations for days, hours, minutes and seconds
-      var hours = Math.floor(time/3600);
-      var minutes = Math.floor((time%3600)/60);
-      var seconds = Math.floor((time%3600)%60);
-      var formattedTime = hours + ":" + (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-      document.getElementById("first_countdown").innerHTML = formattedTime;
-      time = time - 1
-      // If the count down is finished, write some text
-      if (time < 0) {
-        clearInterval(x);
-        document.getElementById("first_countdown").innerHTML = "EXPIRED";
-      }
-    }, 1000);
+  <div class="countdown-container">
+    <h1>Shift your posture countdown:</h1>
+    <p id="first_countdown"></p>
+    <script>
+        var time = {{ minutes_to_shift_posture }} * 60;
+        var x = setInterval(function() {
+          var hours = Math.floor(time/3600);
+          var minutes = Math.floor((time%3600)/60);
+          var seconds = Math.floor((time%3600)%60);
+          var formattedTime = hours + ":" + (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+          document.getElementById("first_countdown").innerHTML = formattedTime;
+          time = time - 1
+          if (time < 0) {
+            clearInterval(x);
+            document.getElementById("first_countdown").innerHTML = "EXPIRED";
+          }
+        }, 1000);
     </script>
     <h1>Stand up and move around countdown:</h1>
     <p id="second_countdown"></p>
     <script>
       var time1 = {{ minutes_to_move_around }} * 60;
-      // Update the count down every 1 second
       var x1 = setInterval(function() {
-        // Find the distance between now and the count down date
-        
-        // Time calculations for days, hours, minutes and seconds
         var hours1 = Math.floor(time1/3600);
         var minutes1 = Math.floor((time1%3600)/60);
         var seconds1 = Math.floor((time1%3600)%60);
         var formattedTime1 = hours1 + ":" + (minutes1 < 10 ? "0" : "") + minutes1 + ":" + (seconds1 < 10 ? "0" : "") + seconds1;
-        document.getElementById("second_countdown").innerHTML = formattedTime1;
-        
+        document.getElementById("second_countdown").innerHTML = formattedTime1;  
         time1 = time1 - 1
-        // If the count down is finished, write some text
         if (time1 < 0) {
           clearInterval(x1);
           document.getElementById("second_countdown").innerHTML = "EXPIRED";
         }
       }, 1000);
     </script>
- </div>
- <div class="image-container">
-  <img id="dynamic-image" src={{image}} alt="Image">
+  </div>
+
+  <div class="image-gyro-container">
+    <div class="image-container">
+      <h1>Current pose:</h1>
+      <img id="dynamic-image" src="{{ url_for('static', filename='posture_images/GoodPostureBadNeckModified.png') }}" alt="Image">
+    </div>
+
+    <div class="gyro-container">
+      <h1>Gyroscope:</h1>
+      <img id="dynamic-gyro" src="{{ url_for('static', filename='gyro.png') }}" alt="Image">
+    </div>
+  </div>
+
+  <div class="weight-container">
+    <div class="weight-display">Minimum kilograms for sensitivity:<br> <span class="weight-value">{{minimum_weight}}</span></div>
+    <div class="weight-display">Currently kilograms sensed: <br> <span class="weight-value">{{current_weight}}</span></div>
+  </div>
 </div>
 
 <script>
@@ -71,9 +74,6 @@
   })}, 1000);
 </script>
 
-<div class="image-container">
-  <img id="dynamic-gyro" src={{gyro}} alt="Image">
-</div>
 <script>
   var gyro_change = setInterval(function(){
     fetch('/get_gyro_url')
@@ -81,12 +81,7 @@
       .then(data => {
       var gyro_src = data.gyro_url;
     console.log(gyro_src);
-    document.getElementById("dynamic-image").setAttribute("src", gyro_src);
+    document.getElementById("dynamic-gyro").setAttribute("src", gyro_src);
   })}, 1000);
 </script>
- <div class="weight-container">
-   <div class="weight-display">Minimum kilograms for sensitivity:<br> <span class="weight-value">{{minimum_weight}}</span></div>
-   <div class="weight-display">Currently kilograms sensed: <br> <span class="weight-value">{{current_weight}}</span></div>
- </div>
-</div>
 {% endblock %}
