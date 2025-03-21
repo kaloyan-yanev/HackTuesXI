@@ -17,7 +17,7 @@
   
   .container{
     background-color: rgb(232, 232, 232);
-    width: 80%;
+    width: 60%;
     padding:10px;
     height: 100vh;
     margin-top: 10px;
@@ -46,3 +46,24 @@
       background-color: #333;
       color: white;
     }
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    color: white;
+    justify-content: space-between;
+}
+  
+  .footer p {
+      margin: 10px;
+  }
+  
+  .footer p:hover {
+      color: blue;
+      text-decoration: underline;
+  }
+  
+  .footer .copyright:hover {
+      color: white;
+      text-decoration: none;
+  }
