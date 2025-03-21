@@ -57,15 +57,18 @@
     </script>
  </div>
  <div class="image-container">
-  <img id="dynamic-image" src="{{image}}" alt="Image">
+  <img id="dynamic-image" src={{image}} alt="Image">
 </div>
 
 <script>
-  var image_src = {{image}};
   var image_change = setInterval(function(){
+    fetch('/get_image_url')
+      .then(response => response.json())
+      .then(data => {
+      var image_src = data.image_url;
     console.log(image_src);
     document.getElementById("dynamic-image").setAttribute("src", image_src);
-  }, 1000);
+  })}, 1000);
 </script>
  <div class="weight-container">
    <div class="weight-display">Minimum kilograms for sensitivity:<br> <span class="weight-value">{{minimum_weight}}</span></div>

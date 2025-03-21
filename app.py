@@ -92,6 +92,27 @@ def Home():
     print(random_value_for_now)
     print(session["minutes_to_shift"])
     print(session["minutes_to_move_around"])
-
+    print(image_loader)
     return render_template('/Home.html', minutes_to_shift_posture = session["minutes_to_shift"], minutes_to_move_around = session["minutes_to_move_around"], minimum_weight = session["Kilograms"], current_weight = random_value_for_now, image = image_loader)
+@app.route('/get_image_url')
+def get_image_url():
+    random_image = random.randint(1, 8)
+    match random_image:
+        case 1:
+            image_loader = url_for('static', filename = 'posture_images/goodposturegoodneck.png')
+        case 2:
+            image_loader = url_for('static', filename = 'posture_images/GoodPostureBadNeckModified.png')
+        case 3:
+            image_loader = url_for('static', filename = 'posture_images/worseposturebadneckmodified.png')
+        case 4:
+            image_loader = url_for('static', filename = 'posture_images/worseposturegoodneckmodified.png')
+        case 5: 
+            image_loader = url_for('static', filename = 'posture_images/worserposturebadneckmodified.png')
+        case 6:
+            image_loader = url_for('static', filename = 'posture_images/worserposturegoodneckmodified.png')
+        case 7:
+            image_loader = url_for('static', filename = 'posture_images/worstposturebadneckmodified.png')
+        case 8:
+            image_loader = url_for('static', filename = 'posture_images/worstposturegoodneckmodified.png')
+    return jsonify({'image_url': image_loader})
 
