@@ -1,5 +1,5 @@
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Monaco', Monaco, monospace;
     background-color: #f4f4f4;
     display: flex;
     justify-content: center;
@@ -8,35 +8,36 @@ body {
     margin: 0;
 }
 
-.form-container{
-    display:flex;
-    margin: 20px;
+.form-container {
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
+    width: 870px; /* Added px unit */
+    padding: 10px;
+    margin: 15px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    height: 560px;
+    position: relative;
 }
 
 .form-container h1 {
     margin-bottom: 20px;
-    font-size: 24px;
+    font-size: 35px;
     color: #333;
+    align-self:center;
 }
 
 .form-container label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
+    font-size: 20px;
     color: #333;
 }
 
-.form-container{
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-.form-container input[type="submit"] {
+.form-container input[type="submit"], .form-container button {
     background-color: #333;
     color: #fff;
     padding: 10px 15px;
@@ -44,8 +45,47 @@ body {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    transition: background-color 0.3s ease;
+    position: absolute;
 }
 
-.form-container input[type="submit"]:hover {
+.form-container input[type="submit"]:hover, .form-container button:hover {
     background-color: #555;
+}
+
+.form-container input[type="submit"] {
+    bottom: 10px;
+    left: 10px;
+}
+
+.form-container button {
+    bottom: 10px;
+    right: 10px;
+}
+
+.form-container input[type="text"], .form-container input[type="number"] {
+    width: 100%; 
+    padding: 15px;
+    font-size: 18px;
+    border: 2px solid #3498db;
+    border-radius: 5px;
+    outline: none;
+    background-color: #f9f9f9;
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 15px;
+}
+
+.form-container input[type="text"]:hover, .form-container input[type="number"]:hover {
+    border-color: #2ecc71;
+}
+
+.form-container input[type="text"]:focus, .form-container input[type="number"]:focus {
+    border-color: #2ecc71;
+    box-shadow: 0 0 5px rgba(46, 204, 113, 0.8);
+}
+
+.form-container input[type="text"]::placeholder, .form-container input[type="number"]::placeholder {
+    color: #aaa;
+    font-style: italic;
 }

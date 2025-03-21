@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Index{% endblock %}
+{% block title %}Table{% endblock %}
 
 {% block content %}
 <head>
@@ -9,14 +9,15 @@
 
     <table>
         <tr>
-          <th>Company</th>
-          <th>Contact</th>
-          <th>Country</th>
+          <th>DAYS</th>
+          {% for i in range(0, 7)%}
+          <th>{{i + 8}}</th>
+          {%endfor%}
         </tr>
+        {% for i in range(0, 24)%}
         <tr>
-          <td>Alfreds Futterkiste</td>
-          <td>Maria Anders</td>
-          <td>Germany</td>
+          <td>{{i}}</td>
         </tr>
+        {%endfor%}
       </table>
 {% endblock %}
