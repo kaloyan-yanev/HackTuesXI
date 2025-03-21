@@ -70,6 +70,20 @@
     document.getElementById("dynamic-image").setAttribute("src", image_src);
   })}, 1000);
 </script>
+
+<div class="image-container">
+  <img id="dynamic-gyro" src={{gyro}} alt="Image">
+</div>
+<script>
+  var gyro_change = setInterval(function(){
+    fetch('/get_gyro_url')
+      .then(response => response.json())
+      .then(data => {
+      var gyro_src = data.gyro_url;
+    console.log(gyro_src);
+    document.getElementById("dynamic-image").setAttribute("src", gyro_src);
+  })}, 1000);
+</script>
  <div class="weight-container">
    <div class="weight-display">Minimum kilograms for sensitivity:<br> <span class="weight-value">{{minimum_weight}}</span></div>
    <div class="weight-display">Currently kilograms sensed: <br> <span class="weight-value">{{current_weight}}</span></div>

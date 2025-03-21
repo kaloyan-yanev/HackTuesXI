@@ -33,6 +33,8 @@ def default():
     session["minutes_to_shift"] = 20
     session["minutes_to_move_around"] = 30
     session["Kilograms"] = 50
+    session["posture_image"] = 0
+    session["gyro_arrow"] = 0
     global i
     i = 0
     return redirect(url_for("Home"))
@@ -71,48 +73,63 @@ def Table():
 @app.route('/Home')
 def Home():
     random_value_for_now = random.randint(session["Kilograms"] - 10, 100)
-    random_image = random.randint(1, 8)
+    random_image = random.randint(1, 2)
+    random_arrow = random.randint(1, 8)
     match random_image:
         case 1:
-            image_loader = url_for('static', filename = 'posture_images/goodposturegoodneck.png')
+            session["posture_image"] = url_for('static', filename = 'posture_images/good_posture.png')
         case 2:
-            image_loader = url_for('static', filename = 'posture_images/GoodPostureBadNeckModified.png')
+            session["posture_image"] = url_for('static', filename = 'posture_images/bad_posture-modified.png')
+    match random_arrow:
+        case 1:
+            session["gyro_arrow"] = url_for('static', filename = 'gyro_images/gyro_up.png')
+        case 2:
+            session["gyro_arrow"] = url_for('static', filename = 'gyro_images/gyro_upright.png')
         case 3:
-            image_loader = url_for('static', filename = 'posture_images/worseposturebadneckmodified.png')
+            session["gyro_arrow"] = url_for('static', filename = 'gyro_images/gyro_right.png')
         case 4:
-            image_loader = url_for('static', filename = 'posture_images/worseposturegoodneckmodified.png')
-        case 5: 
-            image_loader = url_for('static', filename = 'posture_images/worserposturebadneckmodified.png')
+            session["gyro_arrow"] = url_for('static', filename = 'gyro_images/gyro_downright.png')
+        case 5:
+            session["gyro_arrow"] = url_for('static', filename = 'gyro_images/gyro_down.png')
         case 6:
-            image_loader = url_for('static', filename = 'posture_images/worserposturegoodneckmodified.png')
+            session["gyro_arrow"] = url_for('static', filename = 'gyro_images/gyro_downleft.png')
         case 7:
-            image_loader = url_for('static', filename = 'posture_images/worstposturebadneckmodified.png')
+            session["gyro_arrow"] = url_for('static', filename = 'gyro_images/gyro_left.png')
         case 8:
-            image_loader = url_for('static', filename = 'posture_images/worstposturegoodneckmodified.png')
+            session["gyro_arrow"] = url_for('static', filename = 'gyro_images/gyro_upleft.png')
     print(random_value_for_now)
     print(session["minutes_to_shift"])
     print(session["minutes_to_move_around"])
-    print(image_loader)
-    return render_template('/Home.html', minutes_to_shift_posture = session["minutes_to_shift"], minutes_to_move_around = session["minutes_to_move_around"], minimum_weight = session["Kilograms"], current_weight = random_value_for_now, image = image_loader)
+    return render_template('/Home.html', minutes_to_shift_posture = session["minutes_to_shift"], minutes_to_move_around = session["minutes_to_move_around"], minimum_weight = session["Kilograms"], current_weight = random_value_for_now, image = session["posture_image"], gyro = session["gyro_arrow"])
+
 @app.route('/get_image_url')
 def get_image_url():
-    random_image = random.randint(1, 8)
+    random_image = random.randint(1, 2)
     match random_image:
         case 1:
-            image_loader = url_for('static', filename = 'posture_images/goodposturegoodneck.png')
+            session["posture_image"] = url_for('static', filename = 'posture_images/good_posture.png')
         case 2:
-            image_loader = url_for('static', filename = 'posture_images/GoodPostureBadNeckModified.png')
-        case 3:
-            image_loader = url_for('static', filename = 'posture_images/worseposturebadneckmodified.png')
-        case 4:
-            image_loader = url_for('static', filename = 'posture_images/worseposturegoodneckmodified.png')
-        case 5: 
-            image_loader = url_for('static', filename = 'posture_images/worserposturebadneckmodified.png')
-        case 6:
-            image_loader = url_for('static', filename = 'posture_images/worserposturegoodneckmodified.png')
-        case 7:
-            image_loader = url_for('static', filename = 'posture_images/worstposturebadneckmodified.png')
-        case 8:
-            image_loader = url_for('static', filename = 'posture_images/worstposturegoodneckmodified.png')
-    return jsonify({'image_url': image_loader})
+            session["posture_image"] = url_for('static', filename = 'posture_images/bad_posture-modified.png')
+    return jsonify({'image_url': session["posture_image"]})
 
+@app.route('/get_gyro_url')
+def get_gyro_url():
+    random_arrow = random.randint(1, 8)
+    match random_arrow:
+        case 1:
+            session["gyro_arrow"] = url_for('static', filename = 'gyro_images/gyro_up.png')
+        case 2:
+            session["gyro_arrow"] = url_for('static', filename = 'gyro_images/gyro_upright.png')
+        case 3:
+            session["gyro_arrow"] = url_for('static', filename = 'gyro_images/gyro_right.png')
+        case 4:
+            session["gyro_arrow"] = url_for('static', filename = 'gyro_images/gyro_downright.png')
+        case 5:
+            session["gyro_arrow"] = url_for('static', filename = 'gyro_images/gyro_down.png')
+        case 6:
+            session["gyro_arrow"] = url_for('static', filename = 'gyro_images/gyro_downleft.png')
+        case 7:
+            session["gyro_arrow"] = url_for('static', filename = 'gyro_images/gyro_left.png')
+        case 8:
+            session["gyro_arrow"] = url_for('static', filename = 'gyro_images/gyro_upleft.png')
+    return jsonify({'gyro_url': session["gyro_arrow"]})
