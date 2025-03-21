@@ -3,6 +3,52 @@
 {% block title %}Index{% endblock %}
 
 {% block content %}
-<h1>hello</h1>
-<p></p>
+Shift you posture countdown
+<p id="first_countdown"></p>
+<script>
+    var distance = {{ minutes_to_shift_posture }} * 60;
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+      // Find the distance between now and the count down date
+     
+      
+      // Time calculations for days, hours, minutes and seconds
+      var hours = Math.floor(distance/3600);
+      var minutes = Math.floor((distance%3600)/60);
+      var seconds = Math.floor((distance%3600)%60);
+      // Display the result in the element with id="demo"
+      document.getElementById("first_countdown").innerHTML = hours + "h "
+      + minutes + "m " + seconds + "s ";
+      distance = distance - 1
+      // If the count down is finished, write some text
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("first_countdown").innerHTML = "EXPIRED";
+      }
+    }, 1000);
+    </script>
+    Stand up and move around countdown
+    <p id = "second_countdown"></p>
+    <script>
+      var distance1 = {{ minutes_to_move_around }} * 60;
+      // Update the count down every 1 second
+      var x1 = setInterval(function() {
+        // Find the distance between now and the count down date
+       
+        
+        // Time calculations for days, hours, minutes and seconds
+        var hours1 = Math.floor(distance1/3600);
+        var minutes1 = Math.floor((distance1%3600)/60);
+        var seconds1 = Math.floor((distance1%3600)%60);
+        // Display the result in the element with id="demo"
+        document.getElementById("second_countdown").innerHTML = hours1 + "h "
+        + minutes1 + "m " + seconds1 + "s ";
+        distance1 = distance1 - 1
+        // If the count down is finished, write some text
+        if (distance1 < 0) {
+          clearInterval(x);
+          document.getElementById("second_countdown").innerHTML = "EXPIRED";
+        }
+      }, 1000);
+      </script>
 {% endblock %}
