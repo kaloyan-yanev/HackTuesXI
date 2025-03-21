@@ -8,28 +8,11 @@
 #include <MPU6050_tockn.h>
 
 //гърба
-#define press1 1
-#define press2 2
-#define press3 3
-#define press4 4
-#define press5 5
-#define dist1 A0
-#define dist2 A1
-#define rel1_nagr 11
-#define rel1_ohlad 22
+#define dist1 1
+#define dist2 10
 
 //седалката
-#define press6 1
-#define press7 2
-#define press8 3
-#define press9 4
-#define press10 5
-#define giros_human_SDA 20
-#define giros_human_SCL 21
-#define giros_seat_SDA 20
-#define giros_seat_SCL 21
-#define rel2_nagr 111
-#define rel2_ohlad 222
+#define but_center_seat 16
 #define MPU1_ADDR 0x68
 #define MPU2_ADDR 0x69
 #define SDA_pin 6
@@ -80,22 +63,14 @@ void setup() {
   mpu2.calcGyroOffsets(true);
 
   //гръб
-  pinMode(press1, INPUT);
-  pinMode(press2, INPUT);
-  pinMode(press3, INPUT);
-  pinMode(press4, INPUT);
-  pinMode(press5, INPUT);
-  pinMode(rel1_nagr, OUTPUT);
-  pinMode(rel1_ohlad, OUTPUT);
+  pinMode(but1, INPUT);
+  pinMode(but2, INPUT);
+  pinMode(but3, INPUT);
+  pinMode(but4, INPUT);
+  pinMode(but5, INPUT);
 
   //седалка
-  pinMode(press6, INPUT);
-  pinMode(press7, INPUT);
-  pinMode(press8, INPUT);
-  pinMode(press9, INPUT);
-  pinMode(press10, INPUT);
-  pinMode(rel2_nagr, OUTPUT);
-  pinMode(rel2_ohlad, OUTPUT);
+  pinMode(but_center_seat, INPUT);
 
   BLEDevice::init("ESP32");
 
@@ -137,19 +112,10 @@ String data_handler(){
   mpu2.update();
   //гръб
   String my_json = "{";
-  my_json += "\"but1\":" + String(digitalRead(press1)) + ",";
-  my_json += "\"but2\":" + String(digitalRead(press2)) + ",";
-  my_json += "\"but3\":" + String(digitalRead(press3)) + ",";
-  my_json += "\"but4\":" + String(digitalRead(press4)) + ",";
-  my_json += "\"but5\":" + String(digitalRead(press5)) + ",";
   my_json += "\"dist1\":" + String(analogRead(dist1)) + ",";
-  my_json += "\"dist2\":" + String(analogRead(dist2)) + ",";
+  my_json += "\"dist2\":" + String(digitalRead(dist2)) + ",";
   //седалка
-  my_json += "\"but6\":" + String(digitalRead(press6)) + ",";
-  my_json += "\"but7\":" + String(digitalRead(press7)) + ",";
-  my_json += "\"but8\":" + String(digitalRead(press8)) + ",";
-  my_json += "\"but9\":" + String(digitalRead(press9)) + ",";
-  my_json += "\"but10\":" + String(digitalRead(press10))+ ",";
+  my_json += "\"but_center_seat\":" + String(digitalRead(but_center_seat)) + ",";
   my_json += "\"giros_human_Y\":" + String(normalizeAngle(mpu1.getAngleY()))+ ",";
   my_json += "\"giros_seat_X\":" + String(normalizeAngle(mpu2.getAngleX()));
   my_json += "}@";
@@ -158,11 +124,13 @@ String data_handler(){
 }
 
 void loop() {
-  if(runEvery(2000)){
-    if (deviceConnected) {
-        pCharacteristic->setValue(data_handler());
-        pCharacteristic->notify();
-        Serial.println(data_handler());
+  if(digitalRead(but_center_seat)==HIGH){
+    if(runEvery(2000)){
+      if (deviceConnected) {
+          pCharacteristic->setValue(data_handler());
+          pCharacteristic->notify();
+          Serial.println(data_handler());
+      }
     }
   }
   
