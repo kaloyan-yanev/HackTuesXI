@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, redirect,session
+from flask import Flask, render_template, request, url_for, redirect,session, jsonify
 from flask_wtf import FlaskForm
 from wtforms import IntegerField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, NumberRange
@@ -71,29 +71,27 @@ def Table():
 @app.route('/Home')
 def Home():
     random_value_for_now = random.randint(session["Kilograms"] - 10, 100)
-    while True:
+    random_image = random.randint(1, 8)
+    match random_image:
+        case 1:
+            image_loader = url_for('static', filename = 'posture_images/goodposturegoodneck.png')
+        case 2:
+            image_loader = url_for('static', filename = 'posture_images/GoodPostureBadNeckModified.png')
+        case 3:
+            image_loader = url_for('static', filename = 'posture_images/worseposturebadneckmodified.png')
+        case 4:
+            image_loader = url_for('static', filename = 'posture_images/worseposturegoodneckmodified.png')
+        case 5: 
+            image_loader = url_for('static', filename = 'posture_images/worserposturebadneckmodified.png')
+        case 6:
+            image_loader = url_for('static', filename = 'posture_images/worserposturegoodneckmodified.png')
+        case 7:
+            image_loader = url_for('static', filename = 'posture_images/worstposturebadneckmodified.png')
+        case 8:
+            image_loader = url_for('static', filename = 'posture_images/worstposturegoodneckmodified.png')
+    print(random_value_for_now)
+    print(session["minutes_to_shift"])
+    print(session["minutes_to_move_around"])
 
-        random_image = random.randint(1, 8)
-        match random_image:
-            case 1:
-                image_loader = 'posture_images/goodposturegoodneck.png'
-            case 2:
-                image_loader = 'posture_images/GoodPostureBadNeckModified.png'
-            case 3:
-                image_loader = 'posture_images/worseposturebadneckmodified.png'
-            case 4:
-                image_loader = 'posture_images/worseposturegoodneckmodified.png'
-            case 5: 
-                image_loader = 'posture_images/worserposturebadneckmodified.png'
-            case 6:
-                image_loader = 'posture_images/worserposturegoodneckmodified.png'
-            case 7:
-                image_loader = 'posture_images/worstposturebadneckmodified.png'
-            case 8:
-                image_loader = 'posture_images/worstposturegoodneckmodified.png'
-        print(random_value_for_now)
-        print(session["minutes_to_shift"])
-        print(session["minutes_to_move_around"])
-        return render_template('/Home.html', minutes_to_shift_posture = session["minutes_to_shift"], minutes_to_move_around = session["minutes_to_move_around"], minimum_weight = session["Kilograms"], current_weight = random_value_for_now, image = image_loader)
+    return render_template('/Home.html', minutes_to_shift_posture = session["minutes_to_shift"], minutes_to_move_around = session["minutes_to_move_around"], minimum_weight = session["Kilograms"], current_weight = random_value_for_now, image = image_loader)
 
-    
