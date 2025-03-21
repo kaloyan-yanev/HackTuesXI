@@ -52,7 +52,7 @@ def Index():
         print(session["minutes_to_shift"])
         print(session["minutes_to_move_around"])
         print(calibrate.bool)
-        if(calibrate.bool.data == True):
+        if(calibrate.bool.data == True):    
             print("YES")
            # values = [30.5,20.6]
            # mycursor.execute("CREATE TABLE IF NOT EXISTS default_data (back_sensor FLOAT, neck_sensor FLOAT)")
