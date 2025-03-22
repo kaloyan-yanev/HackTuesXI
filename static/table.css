@@ -19,7 +19,9 @@ table {
 
 th, td {
     padding: 12px 15px;
+    padding-left: 30px;
     border-bottom: 1px solid #ddd;
+    position: relative;
 }
 
 th {
@@ -32,4 +34,13 @@ th {
 
 tr:nth-of-type(even) {
     background-color: #f3f3f3;
+}
+
+.percentage {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #01a43d;
 }
