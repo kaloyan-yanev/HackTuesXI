@@ -44,6 +44,7 @@ class MyServerCallbacks: public BLEServerCallbacks {
 
 void setup() {
   Serial.begin(115200);
+  
   Wire.begin(SDA_pin, SCL_pin);
 
   Wire.beginTransmission(MPU1_ADDR);
@@ -63,15 +64,11 @@ void setup() {
   mpu2.calcGyroOffsets(true);
 
   //гръб
-  pinMode(but1, INPUT);
-  pinMode(but2, INPUT);
-  pinMode(but3, INPUT);
-  pinMode(but4, INPUT);
-  pinMode(but5, INPUT);
 
   //седалка
   pinMode(but_center_seat, INPUT);
 
+  
   BLEDevice::init("ESP32");
 
   pServer = BLEDevice::createServer();
@@ -112,11 +109,12 @@ String data_handler(){
   mpu2.update();
   //гръб
   String my_json = "{";
-  my_json += "\"dist1\":" + String(analogRead(dist1)) + ",";
-  my_json += "\"dist2\":" + String(digitalRead(dist2)) + ",";
+  my_json += "\"dist1\":" + String(analogRead(dist1))+ ",";
+  my_json += "\"dist2\":" + String(analogRead(dist2)) + ",";
   //седалка
-  my_json += "\"but_center_seat\":" + String(digitalRead(but_center_seat)) + ",";
+  my_json += "\"giros_human_X\":" + String(normalizeAngle(mpu1.getAngleX()))+ ",";
   my_json += "\"giros_human_Y\":" + String(normalizeAngle(mpu1.getAngleY()))+ ",";
+  
   my_json += "\"giros_seat_X\":" + String(normalizeAngle(mpu2.getAngleX()));
   my_json += "}@";
   
@@ -132,7 +130,17 @@ void loop() {
           Serial.println(data_handler());
       }
     }
+  }else{
+    if(runEvery(60000)){
+      if (deviceConnected) {
+          pCharacteristic->setValue("No data");
+          pCharacteristic->notify();
+          Serial.println(data_handler());
+      }
+    }
   }
+
+
   
   // disconnecting
   if (!deviceConnected && oldDeviceConnected) {
