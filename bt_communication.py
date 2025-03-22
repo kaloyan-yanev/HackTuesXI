@@ -33,7 +33,7 @@ def Sensor_Data_Handler(jsonData):
     gir_seat = json_Dict['giros_seat_X']
     gir_stol = json_Dict['giros_human_Y']
     val = [datetime.datetime.now() , gir_seat, gir_stol, dist1, dist2]
-    my_sql = "INSERT INTO test_data (date_and_time, angle_seat, angle_stol, dist1, dist2) VALUES (%s, %f, %f, %f, %f)"
+    my_sql = "INSERT INTO sensor_data (date_and_time, angle_seat, angle_stol, dist1, dist2) VALUES (%s, %f, %f, %f, %f)"
 
     mycursor.execute(my_sql, val)
     db.commit()

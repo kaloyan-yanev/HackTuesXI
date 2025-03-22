@@ -11,19 +11,19 @@
 <table>
   <thead>
     <tr>
-      <th>HOURS</th>
-      {% for i in range(0, 6) %}
-      <th>{{ days[i] }}</th>
-      {% endfor %}
+        <th>DAYS</th>
+        {% for i in range(0, 7) %}
+        <th>{{ i + 8 }}</th>
+        {% endfor %}
     </tr>
     </thead>
     <tbody>
     {% for i in range(1, 25) %}
     <tr>
       <td>{{ i }}</td>
-      {% for j in range(0, 6) %}
+      {% for j in range(0, 7) %}
       <td>
-        <img src="{{image}}" width="50" height="50" alt="Image">
+        <img src="{{ url_for('static', filename='posture_images/good_posture.png') }}" width="50" height="50" alt="Image">
         <span class="percentage"></span>
       </td>
       {% endfor %}
@@ -37,8 +37,8 @@
   document.addEventListener("DOMContentLoaded", function() {
     const percentages = document.querySelectorAll('.percentage');
     percentages.forEach(function(percentage) {
-      const randomPercentage = {{good_percent_time}}; // Generate random number between 0 and 100
-      percentage.textContent = randomPercentage + '%';
+        const randomPercentage = Math.floor(Math.random() * 101); // Generate random number between 0 and 100
+        percentage.textContent = randomPercentage + '%';
     });
   });
 </script>

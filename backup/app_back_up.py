@@ -5,7 +5,6 @@ from wtforms.validators import DataRequired, NumberRange
 import mysql.connector  
 from string_manipulation import remove_obstacles
 import random
-import datetime
 #from flask_session import Session
 
 app = Flask(__name__)  
@@ -69,39 +68,7 @@ def Index():
 
 @app.route('/Table')
 def Table():
-    time_now = datetime.datetime.now()
-    mytuple = ()
-    mycursor.execute("SELECT date_and_time FROM hour_data ORDER BY hour(date_and_time) DESC")
-    myresults = mycursor.fetchall()
-    for x in myresults:
-        year_to_check = x[0].year
-        month_to_check = x[0].month
-        day_to_check = x[0].day
-        hours_to_check = x[0].hour
-        minutes_to_check = x[0].minute
-        if year_to_check == time_now.year and month_to_check == time_now.month and day_to_check == time_now.day and hours_to_check == time_now.hour and minutes_to_check == time_now.minute:
-            #analyze the data
-            mycursor.execute=("SELECT day(date_and_time) FROM hour_data ORDER BY day(date_and_time) DESC limit 7")
-            myresults = mycursor.fetchall()
-            for x in myresults:
-                mytuple[x] =  x
-            mycursor.execute("SELECT good_percent FROM hour_data ORDER BY hour(date_and_time) DESC limit 1")
-            myresults = mycursor.fetchall()
-            good_percent = myresults
-            mycursor.execute("SELECT bad_percent FROM hour_data ORDER BY hour(date_and_time) DESC limit 1")
-            myresults = mycursor.fetchall()
-            bad_percent = myresults
-            if(good_percent >= bad_percent):
-                image_to_load = url_for('static', filename = 'posture_images/good_posture.png')
-            else:
-                image_to_load = url_for('static', filename = 'posture_images/bad_posture-modified.png')
-        else:
-            mytuple = None
-            image_to_load = None
-            good_percent = None
-            bad_percent = None
-            pass
-    return render_template('/Table.html', days = mytuple, image = image_to_load, good_percent_time = good_percent)
+    return render_template('/Table.html')
 
 @app.route('/Home')
 def Home():
